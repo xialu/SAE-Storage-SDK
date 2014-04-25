@@ -1,0 +1,20 @@
+<!Doctype html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8" />
+	<title>My Resume</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="JqueryMobile/jquery.mobile-1.4.2.min.css" />
+	<script src="JqueryMobile/demos/js/jquery.js"></script>
+	<script src="JqueryMobile/jquery.mobile-1.4.2.min.js"></script>
+</head>
+<body>
+<form enctype="multipart/form-data" action="upload2.php" method="POST">
+    <!-- MAX_FILE_SIZE must precede the file input field -->
+    <input type="hidden" name="MAX_FILE_SIZE" value="1024000000" />
+    <!-- Name of input element determines name in $_FILES array -->
+    Send this file: <input name="imgFile" type="file" />
+    <input type="submit" value="Send File" />
+</form>
+</body>
+</html>
