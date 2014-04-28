@@ -1,20 +1,166 @@
-<!Doctype html>
-<html lang="zh-cn">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<meta charset="utf-8" />
-	<title>My Resume</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="JqueryMobile/jquery.mobile-1.4.2.min.css" />
-	<script src="JqueryMobile/demos/js/jquery.js"></script>
-	<script src="JqueryMobile/jquery.mobile-1.4.2.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>上传新文件-Storage管理-SAE控制台</title>
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/local.css" />
+    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#submitform").click(function(){
+			$("#fmupload").submit();
+		});
+	})
+	</script>
 </head>
 <body>
-<form enctype="multipart/form-data" action="upload2.php" method="POST">
-    <!-- MAX_FILE_SIZE must precede the file input field -->
-    <input type="hidden" name="MAX_FILE_SIZE" value="1024000000" />
-    <!-- Name of input element determines name in $_FILES array -->
-    Send this file: <input name="imgFile" type="file" />
-    <input type="submit" value="Send File" />
-</form>
+    <div id="wrapper">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">仪表盘</a>
+            </div>
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li><a href="index.php"><i class="fa fa-bullseye"></i> 控制面板</a></li>
+					<li class="active"><a href="storage.php"><i class="fa fa-file-o"></i> Storage</a></li>
+                    <li><a href="portfolio.php"><i class="fa fa-tasks"></i> 相册</a></li>
+                    <li><a href="blog.php"><i class="fa fa-globe"></i> Blog</a></li>
+                    <li><a href="forms.php"><i class="fa fa-list-ol"></i> 表单</a></li>
+                    <li><a href="typography.php"><i class="fa fa-font"></i> 段落</a></li>
+                    <li><a href="bootstrap-elements.php"><i class="fa fa-list-ul"></i> BS Elements </a></li>
+                    <li><a href="bootstrap-grid.php"><i class="fa fa-table"></i > BS Grid</a></li>                    
+                </ul>
+                <ul class="nav navbar-nav navbar-right navbar-user">
+                    <li class="dropdown messages-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> 通知 <span class="badge">2</span> <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header">2 条新消息</li>
+                            <li class="message-preview">
+                                <a href="#">
+                                    <span class="avatar"><i class="fa fa-bell"></i></span>
+                                    <span class="message">Security alert</span>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li class="message-preview">
+                                <a href="#">
+                                    <span class="avatar"><i class="fa fa-bell"></i></span>
+                                    <span class="message">Security alert</span>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="#">消息中心 <span class="badge">2</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown user-dropdown">
+                       <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Luke<b class="caret"></b></a>
+                       <ul class="dropdown-menu">
+                           <li><a href="#"><i class="fa fa-user"></i> 个人资料</a></li>
+                           <li><a href="#"><i class="fa fa-gear"></i> 设置</a></li>
+                           <li class="divider"></li>
+                           <li><a href="#"><i class="fa fa-power-off"></i> 退出</a></li>
+                       </ul>
+                   </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> 上传新文件</h3>
+                        </div>
+                        <div class="panel-body">
+							<div id="shieldui-grid1">
+								<a href="storage.php" class="btn btn-info btn-sm btn-block">文件列表</a><br />
+							</div>
+							<div id="shieldui-grid1">
+								<form class="form-horizontal" id="fmupload" role="form" enctype="multipart/form-data" action="upload.php" method="post">
+									<div class="form-group">
+										<label class="col-sm-2 control-label">选择分类</label>
+										<div class="col-sm-10">
+											<input type="hidden" name="MAX_FILE_SIZE" value="1024000000" />
+											<select class="form-control" name="dir">
+												<option value="image">Image</option>
+												<option value="flash">Flash</option>
+												<option value="media">Media</option>
+												<option value="file">File</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="choosefile" class="col-sm-2 control-label">选择文件</label>
+										<div class="col-sm-10">
+											<input type="file" name="imgFile" class="form-control" id="choosefile" placeholder="选择文件" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="submitform" class="col-sm-2 control-label">确认上传</label>
+										<div class="col-sm-10">
+											<input type="button" class="btn btn-primary" name="imgFile" class="form-control" id="submitform" value="确认上传" />
+										</div>
+									</div>
+								</form>
+							</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+	
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+		<img src="" id="imgSrc" style="max-width:560px" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">See you</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="musicModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+		<video src="" id="mp3value" controls="controls" style="width:560px">
+			基友，你该换浏览器了
+		</video>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clsVideo()">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">See you</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 </body>
 </html>

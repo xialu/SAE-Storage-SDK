@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAE控制台</title>
+    <title>文件列表-Storage管理-SAE控制台</title>
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="css/local.css" />
@@ -91,6 +91,9 @@
                             <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> 文件列表</h3>
                         </div>
                         <div class="panel-body">
+							<div id="shieldui-grid1">
+								<a href="upload.html" class="btn btn-info btn-sm btn-block">上传新文件</a><br />
+							</div>
                             <div id="shieldui-grid1">
 								<table width="100%" class="table table-bordered table-hover">
 									<thead>
@@ -109,8 +112,25 @@
 									</thead>
 									<tbody>
 										<?php 
-											$json = file_get_contents("http://8.xialu.sinaapp.com/FileManager/getfiles.php");
+											$domain = empty($_GET['domain'])?'test':trim($_GET['domain']);//获取当前Domain
+											$limit = empty($_GET['limit'])?'20':intval(trim($_GET['limit']));//每页条数
+											$stor = new SaeStorage();
+											$filesnum = $stor->getFilesNum($domain);//总文件数
+											$totalpages = ceil($filesnum/$limit);//总页数
+											$page = empty($_GET['page'])?'1':intval(trim($_GET['page']));
+											$offset = empty($_GET['offset'])?'0':$limit*($page-1);
+											if($offset<2){
+												$currentoffset = 0;
+											}else{
+												$currentoffset = $offset-$limit;
+											}
+											//$page是当前的page
+											
+											//$prefix = empty($_GET['prefix'])?'':trim($_GET['prefix']);
+											//$json = file_get_contents("http://8.xialu.sinaapp.com/FileManager/getfiles.php?page="$page."&prefix=".$prefix."&limit=".$limit."&offset=".$offset);
+											$json = file_get_contents("http://8.xialu.sinaapp.com/FileManager/getfiles.php?page=".$page."&limit=".$limit);
 											$array = json_decode($json,true);
+											
 											for($i=0;$i<count($array);$i++){
 										?>
 										<tr>
@@ -131,7 +151,7 @@
 												<?php }else{ ?>
 												<a class="btn btn-default btn-xs" href="<?php echo $array[$i]['url']; ?>" target="_blank" >下载</button>
 												<?php } ?>
-												<a class="btn btn-danger btn-xs" href="<?php echo $array[$i]['url']; ?>" target="_blank" >删除</a>
+												<a class="btn btn-danger btn-xs" href="deletefile.php?domain=<?php echo $array[$i]['domain']; ?>&filename=<?php echo $array[$i]['filename'];; ?>" target="_blank" >删除</a>
 											</td>
 											<!-- td><?php echo "<a href='".$array[$i]['url']."' target='_blank' >预览</a>"; ?></td-->
 										</tr>
@@ -142,12 +162,13 @@
 								</table>
 								<ul class="pagination">
 									<li><a href="storage.php">&laquo;</a></li>
-									<li><a href="storage.php">1</a></li>
-									<li><a href="storage.php?page=2">2</a></li>
-									<li><a href="storage.php?page=3">3</a></li>
-									<li><a href="storage.php?page=4">4</a></li>
-									<li><a href="storage.php?page=5">5</a></li>
-									<li><a href="storage.php?page=2">&raquo;</a></li>
+									<?php if($page>1){ ?>
+									<li><a href="storage.php?page=<?php echo $page-1; ?>" >Preview</a></li>
+									<?php } ?>
+									<?php if($totalpages>$page){ ?>
+									<li><a href="storage.php?page=<?php echo $page+1; ?>" >Next</a></li>
+									<?php } ?>
+									<li><a href="storage.php?page=<?php echo $totalpages;?>" >&raquo;</a></li>
 								</ul>
 							</div>
                         </div>

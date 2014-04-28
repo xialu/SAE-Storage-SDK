@@ -12,7 +12,7 @@ class GetFiles{
 		'file' => array('pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'htm', 'html', 'txt', 'zip', 'rar', 'gz', 'bz2'),
 	);//容许的文件扩展名
 	
-	public function __construct($domain,$offset='0',$limit='10',$prefix=''){
+	public function __construct($domain,$offset,$limit,$prefix){
 		$this->stor = new SaeStorage();
 		$this->domain = $domain;
 		$this->prefix = $prefix;
@@ -55,5 +55,16 @@ class GetFiles{
 		return json_encode($fileInfo);
 	}
 }
-$gf = new GetFiles('test');
+
+$domain = empty($_GET['domain'])?'test':trim($_GET['domain']);
+$prefix = empty($_GET['prefix'])?'':trim($_GET['prefix']);
+$limit = empty($_GET['limit'])?'20':trim($_GET['limit']);
+$page = empty($_GET['page'])?'1':intval(trim($_GET['page']));
+if($page<2){
+	$offset = 0;
+}else{
+	$offset = $limit*($page-1);
+}
+
+$gf = new GetFiles($domain,$offset,$limit,$prefix);
 echo $gf->fileList();
