@@ -4,13 +4,16 @@
 ## 接口文档
 当前阶段，代码仅支持执行在新浪SAE
 ### 获取bucket列表
-#### URL
+URL
 ```bucketList.php```
-#### Method
+
+Method
 ```GET```
-#### Request
+
+Request
 ```null```
-#### Response
+
+Response
 
 ```javascript
 {
@@ -27,13 +30,16 @@ name: "cities"
 ```
 
 ### 获取object（文件）列表
-#### URL
+URL
 ```objectList.php```
-#### Method
+
+Method
 ```GET```
-#### Request
+
+Request
 ```null```
-#### Response
+
+Response
 
 ```javascript
 {
