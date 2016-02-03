@@ -5,13 +5,22 @@
 当前阶段，代码仅支持执行在新浪SAE
 ### 获取bucket列表
 URL
-```bucketList.php```
+
+```
+bucketList.php
+```
 
 Method
-```GET```
+
+```
+GET
+```
 
 Request
-```null```
+
+```
+null
+```
 
 Response
 
@@ -31,13 +40,21 @@ name: "cities"
 
 ### 获取object（文件）列表
 URL
-```objectList.php```
+
+```
+objectList.php
+```
 
 Method
-```GET```
+
+```
+GET
+```
 
 Request
-```null```
+```
+null
+```
 
 Response
 
